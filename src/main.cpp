@@ -100,7 +100,6 @@ int main() {
                             n=i;
                             while(letter<answerList[k].length() && n>=0 && found != true) {
                                 if(answerList[k][letter] != matrix[n-1][j]) {
-                                    direction++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
@@ -112,6 +111,7 @@ int main() {
                                 letter++;
                                 n--;
                             }
+                            direction++;
                         }
                         else if(direction == 1) { //kanan atas
                             letter=1;
@@ -119,7 +119,6 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && n>=0 && o<col && found != true) {
                                 if(answerList[k][letter] != matrix[n-1][o+1]) {
-                                    direction++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
@@ -132,13 +131,13 @@ int main() {
                                 n--;
                                 o++;
                             }
+                            direction++;
                         }
                         else if(direction == 2) { //kanan
                             letter=1;
                             o=j;
                             while(letter<answerList[k].length() && o<col && found != true) {
                                 if(answerList[k][letter] != matrix[i][o+1]) {
-                                    direction++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
@@ -150,6 +149,7 @@ int main() {
                                 letter++;
                                 o++;
                             }
+                            direction++;
                         }
                         else if(direction == 3) { //kanan bawah
                             letter=1;
@@ -157,7 +157,6 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && n<row && o<col && found != true) {
                                 if(answerList[k][letter] != matrix[n+1][o+1]) {
-                                    direction++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
@@ -170,13 +169,13 @@ int main() {
                                 n++;
                                 o++;
                             }
+                            direction++;
                         }
                         else if(direction == 4) { //bawah
                             letter=1;
                             n=i;
                             while(letter<answerList[k].length() && n<row && found != true) {
                                 if(answerList[k][letter] != matrix[n+1][j]) {
-                                    direction++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
@@ -188,6 +187,7 @@ int main() {
                                 letter++;
                                 n++;
                             }
+                            direction++;
                         }
                         else if(direction == 5) { //kiri bawah
                             letter=1;
@@ -195,7 +195,6 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && n<row && o>=0 && found != true) {
                                 if(answerList[k][letter] != matrix[n+1][o-1]) {
-                                    direction++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
@@ -208,13 +207,13 @@ int main() {
                                 n++;
                                 o--;
                             }
+                            direction++;
                         }
                         else if(direction == 6) { //kiri
                             letter=1;
                             o=j;
                             while(letter<answerList[k].length() && o>=0 && found != true) {
                                 if(answerList[k][letter] != matrix[i][o-1]) {
-                                    direction++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
@@ -226,6 +225,7 @@ int main() {
                                 letter++;
                                 o--;
                             }
+                            direction++;
                         }
                         else if(direction == 7) { //kiri atas
                             letter=1;
@@ -233,7 +233,6 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && n>=0 && o>=0 && found != true) {
                                 if(answerList[k][letter] != matrix[n-1][o-1]) {
-                                    direction++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
@@ -246,8 +245,12 @@ int main() {
                                 n--;
                                 o--;
                             }
+                            direction++;
                         }
                     }
+                }
+                else if(i==row-1 && j==col-1){
+                    cout<<"kata tidak ditemukan"<<endl;
                 }
                 j++;
             }

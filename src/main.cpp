@@ -22,6 +22,80 @@ int getColumns(string line) {
     return columns/getRow(line);
 }
 
+string displayAnswerMatrix(int row, int col, int rowStart, int colStart, int rowEnd, int colEnd, string answerList) {
+    int i,j,k;
+    char matrix[row][col];
+    string answerMatrix = "";
+
+    for(i=0;i<row;i++) {
+        for(j=0;j<col;j++) {
+            matrix[i][j] = '-';
+        }
+    }
+
+    if(rowStart == rowEnd && colStart > colEnd){ //kiri ke kanan
+        for(j=colStart,k=0;j>=colEnd,k<answerList.length();j--,k++) {
+            matrix[rowStart][j] = answerList[k];
+        }
+    }
+
+    if(rowStart == rowEnd && colStart < colEnd){ //kanan ke kiri
+        for(j=colStart,k=0;j<=colEnd,k<answerList.length();j++,k++) {
+            matrix[rowStart][j] = answerList[k];
+        }
+    }
+
+    if(colStart == colEnd && rowStart > rowEnd){ //atas ke bawah
+        for(i=rowStart,k=0;i>=rowEnd,k<answerList.length();i--,k++) {
+            matrix[i][colStart] = answerList[k];
+        }
+    }
+
+    if(colStart == colEnd && rowStart < rowEnd){ //bawah ke atas
+        for(i=rowStart,k=0;i<=rowEnd,k<answerList.length();i++,k++) {
+            matrix[i][colStart] = answerList[k];
+        }
+    }
+
+
+    //diagonal atas kiri ke bawah kanan
+    if(rowStart < rowEnd && colStart < colEnd) {
+        for(i=rowStart,j=colStart,k=0;i<=rowEnd,j<=colEnd,k<answerList.length();i++,j++,k++) {
+            matrix[i][j] = answerList[k];
+        }
+    }
+
+    //diagonal atas kanan ke bawah kiri
+    if(rowStart < rowEnd && colStart > colEnd) {
+        for(i=rowStart,j=colStart,k=0;i<=rowEnd,j>=colEnd,k<answerList.length();i++,j--,k++) {
+            matrix[i][j] = answerList[k];
+        }
+    }
+
+    //diagonal bawah kiri ke atas kanan
+    if(rowStart > rowEnd && colStart < colEnd) {
+        for(i=rowStart,j=colStart,k=0;i>=rowEnd,j<=colEnd,k<answerList.length();i--,j++,k++) {
+            matrix[i][j] = answerList[k];
+        }
+    }
+
+    //diagonal bawah kanan ke atas kiri
+    if(rowStart > rowEnd && colStart > colEnd) {
+        for(i=rowStart,j=colStart,k=0;i>=rowEnd,j>=colEnd,k<answerList.length();i--,j--,k++) {
+            matrix[i][j] = answerList[k];
+        }
+    }
+
+    for(i=0;i<row;i++) {
+        for(j=0;j<col;j++) {
+            answerMatrix += matrix[i][j];
+        }
+        answerMatrix += '\n';
+    }
+
+    return answerMatrix;
+}
+
 int main() {
     // Open file
     string filename;
@@ -104,8 +178,9 @@ int main() {
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << endl;
+                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n-1 << "," << j << ")" << endl;
                                     cout << "Atas" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n-1, j, answerList[k]) << endl;
                                     break;
                                 }
                                 letter++;
@@ -123,8 +198,9 @@ int main() {
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << endl;
+                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n-1 << "," << o+1 << ")" << endl;
                                     cout << "Kanan Atas" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n-1, o+1, answerList[k]) << endl;
                                     break;
                                 }
                                 letter++;
@@ -142,8 +218,9 @@ int main() {
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << endl;
+                                    cout << "(" << i << "," << j << ")" << "to" << "(" << i << "," << o+1 << ")" << endl;
                                     cout << "Kanan" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, i, o+1, answerList[k]) << endl;
                                     break;
                                 }
                                 letter++;
@@ -161,8 +238,9 @@ int main() {
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << endl;
+                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n+1 << "," << o+1 << ")" << endl;
                                     cout << "Kanan Bawah" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n+1, o+1, answerList[k]) << endl;
                                     break;
                                 }
                                 letter++;
@@ -180,8 +258,9 @@ int main() {
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << endl;
+                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n+1 << "," << j << ")" << endl;
                                     cout << "Bawah" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n+1, j, answerList[k]) << endl;
                                     break;
                                 }
                                 letter++;
@@ -199,8 +278,9 @@ int main() {
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << endl;
+                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n+1 << "," << o-1 << ")" << endl;
                                     cout << "Kiri Bawah" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n+1, o-1, answerList[k]) << endl;
                                     break;
                                 }
                                 letter++;
@@ -218,8 +298,9 @@ int main() {
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << endl;
+                                    cout << "(" << i << "," << j << ")" << "to" << "(" << i << "," << o-1 << ")" << endl;
                                     cout << "Kiri" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, i, o-1, answerList[k]) << endl;
                                     break;
                                 }
                                 letter++;
@@ -237,8 +318,9 @@ int main() {
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << endl;
+                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n-1 << "," << o-1 << ")" << endl;
                                     cout << "Kiri Atas" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n-1, o-1, answerList[k]) << endl;
                                     break;
                                 }
                                 letter++;

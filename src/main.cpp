@@ -25,7 +25,7 @@ int getColumns(string line) {
 
 string displayAnswerMatrix(int row, int col, int rowStart, int colStart, int rowEnd, int colEnd, string answerList) {
     int i,j,k;
-    char matrix[row][col];
+    string matrix[row][col];
     string answerMatrix = "";
 
     for(i=0;i<row;i++) {
@@ -89,7 +89,7 @@ string displayAnswerMatrix(int row, int col, int rowStart, int colStart, int row
 
     for(i=0;i<row;i++) {
         for(j=0;j<col;j++) {
-            answerMatrix += matrix[i][j];
+            answerMatrix += matrix[i][j] + " ";
         }
         answerMatrix += '\n';
     }

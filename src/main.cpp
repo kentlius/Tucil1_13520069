@@ -34,30 +34,33 @@ string displayAnswerMatrix(int row, int col, int rowStart, int colStart, int row
         }
     }
 
-    if(rowStart == rowEnd && colStart > colEnd){ //kiri ke kanan
+    //kiri ke kanan
+    if(rowStart == rowEnd && colStart > colEnd){
         for(j=colStart,k=0;j>=colEnd,k<answerList.length();j--,k++) {
             matrix[rowStart][j] = answerList[k];
         }
     }
 
-    if(rowStart == rowEnd && colStart < colEnd){ //kanan ke kiri
+    //kanan ke kiri
+    if(rowStart == rowEnd && colStart < colEnd){
         for(j=colStart,k=0;j<=colEnd,k<answerList.length();j++,k++) {
             matrix[rowStart][j] = answerList[k];
         }
     }
 
-    if(colStart == colEnd && rowStart > rowEnd){ //atas ke bawah
+    //atas ke bawah
+    if(colStart == colEnd && rowStart > rowEnd){
         for(i=rowStart,k=0;i>=rowEnd,k<answerList.length();i--,k++) {
             matrix[i][colStart] = answerList[k];
         }
     }
 
-    if(colStart == colEnd && rowStart < rowEnd){ //bawah ke atas
+    //bawah ke atas
+    if(colStart == colEnd && rowStart < rowEnd){
         for(i=rowStart,k=0;i<=rowEnd,k<answerList.length();i++,k++) {
             matrix[i][colStart] = answerList[k];
         }
     }
-
 
     //diagonal atas kiri ke bawah kanan
     if(rowStart < rowEnd && colStart < colEnd) {
@@ -160,15 +163,11 @@ int main() {
         compare = 0;
         i=0;
         while(i<row && !found) {
-            // cout<<"Row "<<i<<endl;
             j=0;
             while(j<col && !found) {
-                // cout<<"Col "<<j<<endl;
                 if(answerList[k][0] == matrix[i][j] && found != true) {
-                    // cout<<"Found!"<<"("<<i<<","<<j<<")"<<endl;
                     direction=0;
                     while(direction<8 && found != true) {
-                        // cout<<"Direction "<<direction<<endl;
                         if(direction == 0) { //atas
                             letter=1;
                             n=i;

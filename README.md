@@ -17,7 +17,7 @@ Algoritma _brute force_ untuk menemukan semua kata di dalam word search puzzle.
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/kentlius/.git
+   git clone https://github.com/kentlius/Tucil1_13520069.git
    ```
 
 2. Change directory to src

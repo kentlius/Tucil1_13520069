@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <chrono>
 using namespace std;
 
 int getRow(string line) {
@@ -104,6 +105,9 @@ int main() {
     cin >> filename;
 
     ifstream readFile("../test/" + filename + ".txt");
+
+    // Record start time
+    auto start = chrono::high_resolution_clock::now();
 
     // Iterate every line to puzzle variable
     string puzzle;
@@ -340,5 +344,11 @@ int main() {
         }
     }
     
+    // Record end time
+    auto finish = chrono::high_resolution_clock::now();
+
+    chrono::duration<double> elapsed = finish - start;
+    cout << "Elapsed time: " << elapsed.count() << " s" << endl;
+
     readFile.close();
 }

@@ -326,7 +326,7 @@ int main() {
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
                                     totalCompare += compare;
-                                    cout << "(" << i << "," << j << ")" << " => " << "(" << n-1 << "," << o-1 << ")" << " | " << compare << " Comparison(s)" << " time(s)" << endl;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << n-1 << "," << o-1 << ")" << " | " << compare << " Comparison(s)" << endl;
                                     cout << displayAnswerMatrix(row, col, i, j, n-1, o-1, answerList[k]);
                                     break;
                                 }

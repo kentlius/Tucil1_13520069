@@ -36,10 +36,10 @@ Algoritma _brute force_ untuk menemukan semua kata di dalam word search puzzle.
 1. Run main.exe
 
    ```sh
-   ./main
+   .\main
    ```
 
-2. Input text filename in "test" folder
+2. Input any text filename in "test" folder
 
 ## Author
 

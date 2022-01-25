@@ -101,13 +101,10 @@ int main() {
     // Open file
     string filename;
 
-    cout << "Enter filename (without .txt): ";
+    cout << "Enter filename (without \".txt\"): ";
     cin >> filename;
 
     ifstream readFile("../test/" + filename + ".txt");
-
-    // Record start time
-    auto start = chrono::high_resolution_clock::now();
 
     // Iterate every line to puzzle variable
     string puzzle;
@@ -132,17 +129,9 @@ int main() {
         answers = answers.substr(answers.find('\n')+1);
     }
 
-    // // Print each answers
-    // for(i=0; i<answerSize; i++) {
-    //     cout << answerList[i] << endl;
-    // }
-
     // Get rows and columns
     int col = getColumns(puzzle);
-    // cout << "coloumns: " << col << endl;
-
     int row = getRow(puzzle);
-    // cout << "rows: " << row << endl;
 
     // Covert puzzle to matrix
     char matrix[row][col];
@@ -158,10 +147,17 @@ int main() {
         }
     }
 
-    // Iterate through matrix
+    // Record start time
+    auto start = chrono::high_resolution_clock::now();
+
+    int totalCompare = 0;
+    int compare;
+
+    // BRUTE FORCE
     for(k=0;k<answerSize;k++) {
-        cout << "\n" << "Answer " << k+1 << ": " << endl;
+        cout << "\n" << "Word " << k+1 << ": " << answerList[k] << endl;
         bool found = false;
+        compare = 0;
         i=0;
         while(i<row && !found) {
             // cout<<"Row "<<i<<endl;
@@ -178,13 +174,14 @@ int main() {
                             n=i;
                             while(letter<answerList[k].length() && n>=0 && found != true) {
                                 if(answerList[k][letter] != matrix[n-1][j]) {
+                                    compare++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n-1 << "," << j << ")" << endl;
-                                    cout << "Atas" << endl;
-                                    cout << displayAnswerMatrix(row, col, i, j, n-1, j, answerList[k]) << endl;
+                                    totalCompare += compare;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << n-1 << "," << j << ")" << " | " << compare << " Comparison(s)" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n-1, j, answerList[k]);
                                     break;
                                 }
                                 letter++;
@@ -198,13 +195,14 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && n>=0 && o<col && found != true) {
                                 if(answerList[k][letter] != matrix[n-1][o+1]) {
+                                    compare++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n-1 << "," << o+1 << ")" << endl;
-                                    cout << "Kanan Atas" << endl;
-                                    cout << displayAnswerMatrix(row, col, i, j, n-1, o+1, answerList[k]) << endl;
+                                    totalCompare += compare;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << n-1 << "," << o+1 << ")" << " | " << compare << " Comparison(s)" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n-1, o+1, answerList[k]);
                                     break;
                                 }
                                 letter++;
@@ -218,13 +216,14 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && o<col && found != true) {
                                 if(answerList[k][letter] != matrix[i][o+1]) {
+                                    compare++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << "to" << "(" << i << "," << o+1 << ")" << endl;
-                                    cout << "Kanan" << endl;
-                                    cout << displayAnswerMatrix(row, col, i, j, i, o+1, answerList[k]) << endl;
+                                    totalCompare += compare;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << i << "," << o+1 << ")" << " | " << compare << " Comparison(s)" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, i, o+1, answerList[k]);
                                     break;
                                 }
                                 letter++;
@@ -238,13 +237,14 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && n<row && o<col && found != true) {
                                 if(answerList[k][letter] != matrix[n+1][o+1]) {
+                                    compare++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n+1 << "," << o+1 << ")" << endl;
-                                    cout << "Kanan Bawah" << endl;
-                                    cout << displayAnswerMatrix(row, col, i, j, n+1, o+1, answerList[k]) << endl;
+                                    totalCompare += compare;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << n+1 << "," << o+1 << ")" << " | " << compare << " Comparison(s)" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n+1, o+1, answerList[k]);
                                     break;
                                 }
                                 letter++;
@@ -258,13 +258,14 @@ int main() {
                             n=i;
                             while(letter<answerList[k].length() && n<row && found != true) {
                                 if(answerList[k][letter] != matrix[n+1][j]) {
+                                    compare++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n+1 << "," << j << ")" << endl;
-                                    cout << "Bawah" << endl;
-                                    cout << displayAnswerMatrix(row, col, i, j, n+1, j, answerList[k]) << endl;
+                                    totalCompare += compare;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << n+1 << "," << j << ")" << " | " << compare << " Comparison(s)" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n+1, j, answerList[k]);
                                     break;
                                 }
                                 letter++;
@@ -278,13 +279,14 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && n<row && o>=0 && found != true) {
                                 if(answerList[k][letter] != matrix[n+1][o-1]) {
+                                    compare++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n+1 << "," << o-1 << ")" << endl;
-                                    cout << "Kiri Bawah" << endl;
-                                    cout << displayAnswerMatrix(row, col, i, j, n+1, o-1, answerList[k]) << endl;
+                                    totalCompare += compare;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << n+1 << "," << o-1 << ")" << " | " << compare << " Comparison(s)" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n+1, o-1, answerList[k]);
                                     break;
                                 }
                                 letter++;
@@ -298,13 +300,14 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && o>=0 && found != true) {
                                 if(answerList[k][letter] != matrix[i][o-1]) {
+                                    compare++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << "to" << "(" << i << "," << o-1 << ")" << endl;
-                                    cout << "Kiri" << endl;
-                                    cout << displayAnswerMatrix(row, col, i, j, i, o-1, answerList[k]) << endl;
+                                    totalCompare += compare;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << i << "," << o-1 << ")" << " | " << compare << " Comparison(s)" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, i, o-1, answerList[k]);
                                     break;
                                 }
                                 letter++;
@@ -318,13 +321,14 @@ int main() {
                             o=j;
                             while(letter<answerList[k].length() && n>=0 && o>=0 && found != true) {
                                 if(answerList[k][letter] != matrix[n-1][o-1]) {
+                                    compare++;
                                     break;
                                 }
                                 else if(letter == answerList[k].length()-1) {
                                     found = true;
-                                    cout << "(" << i << "," << j << ")" << "to" << "(" << n-1 << "," << o-1 << ")" << endl;
-                                    cout << "Kiri Atas" << endl;
-                                    cout << displayAnswerMatrix(row, col, i, j, n-1, o-1, answerList[k]) << endl;
+                                    totalCompare += compare;
+                                    cout << "(" << i << "," << j << ")" << " => " << "(" << n-1 << "," << o-1 << ")" << " | " << compare << " Comparison(s)" << " time(s)" << endl;
+                                    cout << displayAnswerMatrix(row, col, i, j, n-1, o-1, answerList[k]);
                                     break;
                                 }
                                 letter++;
@@ -336,10 +340,12 @@ int main() {
                     }
                 }
                 else if(i==row-1 && j==col-1){
-                    cout<<"kata tidak ditemukan"<<endl;
+                    cout<< "Not Found" << endl;
                 }
+                compare++;
                 j++;
             }
+            compare++;
             i++;
         }
     }
@@ -347,8 +353,12 @@ int main() {
     // Record end time
     auto finish = chrono::high_resolution_clock::now();
 
+    cout << "\nPuzzle size: " << col << " x " << row << endl;
+
     chrono::duration<double> elapsed = finish - start;
     cout << "Elapsed time: " << elapsed.count() << " s" << endl;
+
+    cout << "Total comparison: " << totalCompare << " Comparison(s)" << endl;
 
     readFile.close();
 }

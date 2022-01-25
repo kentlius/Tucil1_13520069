@@ -150,13 +150,13 @@ int main() {
         }
     }
 
-    // Record start time
-    auto start = chrono::high_resolution_clock::now();
-
     int totalCompare = 0;
     int compare;
 
-    // BRUTE FORCE
+    // Record start time
+    auto start = chrono::high_resolution_clock::now();
+
+    // START BRUTE FORCE
     for(k=0;k<answerSize;k++) {
         cout << "\n" << "Word " << k+1 << ": " << answerList[k] << endl;
         bool found = false;
